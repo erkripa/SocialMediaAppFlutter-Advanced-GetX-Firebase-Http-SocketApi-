@@ -2,35 +2,31 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:get/get.dart';
-import 'package:get_time_ago/get_time_ago.dart';
+import 'package:intl/intl.dart';
 import 'package:social_media_app/apis/models/entities/post.dart';
 import 'package:social_media_app/constants/colors.dart';
 import 'package:social_media_app/constants/dimens.dart';
-import 'package:social_media_app/constants/enums.dart';
 import 'package:social_media_app/constants/strings.dart';
 import 'package:social_media_app/constants/styles.dart';
 import 'package:social_media_app/extensions/date_extensions.dart';
 import 'package:social_media_app/extensions/string_extensions.dart';
 import 'package:social_media_app/global_widgets/avatar_widget.dart';
 import 'package:social_media_app/global_widgets/cached_network_image.dart';
-import 'package:social_media_app/global_widgets/custom_list_tile.dart';
 import 'package:social_media_app/global_widgets/expandable_text_widget.dart';
-import 'package:social_media_app/global_widgets/get_time_ago_refresh_widget/get_time_ago_widget.dart';
 import 'package:social_media_app/global_widgets/primary_icon_btn.dart';
 import 'package:social_media_app/global_widgets/verified_widget.dart';
 import 'package:social_media_app/global_widgets/video_player_widget.dart';
-import 'package:social_media_app/helpers/get_time_ago_msg.dart';
 import 'package:social_media_app/modules/home/controllers/post_controller.dart';
 import 'package:social_media_app/modules/home/controllers/profile_controller.dart';
 import 'package:social_media_app/modules/home/controllers/trending_post_controller.dart';
-import 'package:social_media_app/modules/home/views/widgets/post_view_widget.dart';
+import 'package:social_media_app/modules/home/views/components/post_view_widget.dart';
 import 'package:social_media_app/modules/post/controllers/post_details_controller.dart';
-import 'package:social_media_app/modules/post/views/widgets/poll_option_widget.dart';
+import 'package:social_media_app/modules/post/views/components/poll_option_widget.dart';
 import 'package:social_media_app/routes/route_management.dart';
 import 'package:social_media_app/utils/utility.dart';
 
-class PostWidget extends StatelessWidget {
-  const PostWidget({
+class PostDetailsWidget extends StatelessWidget {
+  const PostDetailsWidget({
     Key? key,
     required this.post,
     required this.controller,
@@ -114,11 +110,9 @@ class PostWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Dimens.boxWidth12,
-                _buildPostTime(context),
-                Dimens.boxWidth4,
                 AyushIconButton(
                   icon: Icons.more_vert,
-                  iconSize: Dimens.twenty,
+                  iconSize: Dimens.sixTeen,
                   iconColor: Theme.of(context).textTheme.bodyLarge!.color,
                   onTap: () => _showHeaderOptionBottomSheet(context),
                 ),
@@ -127,20 +121,6 @@ class PostWidget extends StatelessWidget {
           ),
         ],
       );
-
-  Widget _buildPostTime(BuildContext context) {
-    GetTimeAgo.setCustomLocaleMessages('en', CustomMessages());
-    return GetTimeAgoWidget(
-      date: post.createdAt!.toLocal(),
-      pattern: 'dd MMM yy',
-      builder: (BuildContext context, String value) => Text(
-        value,
-        style: AppStyles.style12Normal.copyWith(
-          color: Theme.of(context).textTheme.titleMedium!.color,
-        ),
-      ),
-    );
-  }
 
   Widget _buildUsername(BuildContext context) => RichText(
         text: TextSpan(
@@ -214,7 +194,7 @@ class PostWidget extends StatelessWidget {
               )
               .toList(),
         ),
-        Dimens.boxHeight8,
+        Dimens.boxHeight4,
         Padding(
           padding: Dimens.edgeInsets0_8,
           child: Column(
@@ -229,12 +209,14 @@ class PostWidget extends StatelessWidget {
                 ),
               ),
               Dimens.boxHeight8,
-              Text(
-                '${post.pollEndsAt!.getPollDurationLeft()}',
-                style: AppStyles.style13Normal.copyWith(
-                  color: isExpired
-                      ? Theme.of(context).textTheme.titleMedium!.color
-                      : ColorValues.linkColor,
+              Flexible(
+                child: Text(
+                  '${post.pollEndsAt!.getPollDurationLeft()}',
+                  style: AppStyles.style13Normal.copyWith(
+                    color: isExpired
+                        ? Theme.of(context).textTheme.titleMedium!.color
+                        : ColorValues.linkColor,
+                  ),
                 ),
               ),
             ],
@@ -302,14 +284,34 @@ class PostWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildPostFooter(BuildContext context) => Padding(
-        padding: Dimens.edgeInsetsHorizDefault,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
+  Widget _buildPostFooter(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Dimens.boxHeight4,
+          Padding(
+            padding: Dimens.edgeInsets0_8,
+            child: _buildPostTime(context),
+          ),
+          Padding(
+            padding: Dimens.edgeInsets8.copyWith(
+              bottom: Dimens.zero,
+            ),
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                _buildLikeCount(),
+                Dimens.boxWidth16,
+                _buildCommentCount(),
+                Dimens.boxWidth16,
+                _buildRepostCount(),
+              ],
+            ),
+          ),
+          Padding(
+            padding: Dimens.edgeInsetsHorizDefault,
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -330,7 +332,7 @@ class PostWidget extends StatelessWidget {
                           size: Dimens.twenty,
                           color: post.isLiked == true
                               ? ColorValues.primaryColor
-                              : Theme.of(context).textTheme.titleMedium!.color,
+                              : ColorValues.grayColor,
                         ),
                         Dimens.boxWidth2,
                         Text(
@@ -412,182 +414,145 @@ class PostWidget extends StatelessWidget {
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       );
 
-  void _showHeaderOptionBottomSheet(BuildContext context) {
-    final currentUser = ProfileController.find.profileDetails!.user!;
-    AppUtility.showBottomSheet(
-      children: [
-        /// View Post
-
-        NxListTile(
-          bgColor: ColorValues.transparent,
-          padding: Dimens.edgeInsets12,
-          showBorder: false,
-          onTap: () {
-            AppUtility.closeBottomSheet();
-            RouteManagement.goToPostDetailsView(post.id!, post);
-          },
-          leading: Icon(
-            Icons.visibility,
-            color: Theme.of(context).textTheme.bodyLarge!.color,
-            size: Dimens.twentyFour,
-          ),
-          title: Text(
-            StringValues.view,
-            style: AppStyles.style16Normal.copyWith(
-              color: Theme.of(context).textTheme.bodyLarge!.color,
-            ),
-          ),
-        ),
-
-        /// Delete Post
-
-        if (post.owner!.id == currentUser.id)
-          NxListTile(
-            bgColor: ColorValues.transparent,
-            padding: Dimens.edgeInsets12,
-            showBorder: false,
-            onTap: () {
-              AppUtility.closeBottomSheet();
-              AppUtility.showDeleteDialog(
-                context,
-                () async {
-                  AppUtility.closeDialog();
-                  controller?.deletePost(post.id!);
-                },
-              );
-            },
-            leading: Icon(
-              Icons.delete,
-              color: Theme.of(context).textTheme.bodyLarge!.color,
-              size: Dimens.twentyFour,
-            ),
-            title: Text(
-              StringValues.delete,
-              style: AppStyles.style16Normal.copyWith(
-                color: Theme.of(context).textTheme.bodyLarge!.color,
-              ),
-            ),
-          ),
-
-        /// Edit Post
-
-        if (post.owner!.id == currentUser.id)
-          NxListTile(
-            bgColor: ColorValues.transparent,
-            padding: Dimens.edgeInsets12,
-            showBorder: false,
-            onTap: () {
-              AppUtility.closeBottomSheet();
-              debugPrint('Edit Post');
-              //RouteManagement.goToEditPostView(post);
-            },
-            leading: Icon(
-              Icons.edit,
-              color: Theme.of(context).textTheme.bodyLarge!.color,
-              size: Dimens.twentyFour,
-            ),
-            title: Text(
-              StringValues.edit,
-              style: AppStyles.style16Normal.copyWith(
-                color: Theme.of(context).textTheme.bodyLarge!.color,
-              ),
-            ),
-          ),
-
-        /// Share Post
-
-        NxListTile(
-          bgColor: ColorValues.transparent,
-          padding: Dimens.edgeInsets12,
-          showBorder: false,
-          onTap: () {
-            AppUtility.closeBottomSheet();
-            AppUtility.showShareDialog(
-              context,
-              '${StringValues.websiteUrl}/post/${post.id}',
-            );
-          },
-          leading: Icon(
-            Icons.share,
-            color: Theme.of(context).textTheme.bodyLarge!.color,
-            size: Dimens.twentyFour,
-          ),
-          title: Text(
-            StringValues.share,
-            style: AppStyles.style16Normal.copyWith(
-              color: Theme.of(context).textTheme.bodyLarge!.color,
-            ),
-          ),
-        ),
-
-        /// Block User
-        if (post.owner!.id != currentUser.id)
-          NxListTile(
-            bgColor: ColorValues.transparent,
-            padding: Dimens.edgeInsets12,
-            showBorder: false,
-            onTap: () {
-              AppUtility.closeBottomSheet();
-              RouteManagement.goToBlockUserView(
-                post.owner!.id,
-                post.owner!.uname,
-                post.owner!.avatar!,
-              );
-            },
-            leading: Icon(
-              Icons.block,
-              color: Theme.of(context).textTheme.bodyLarge!.color,
-              size: Dimens.twentyFour,
-            ),
-            title: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: StringValues.block,
-                    style: AppStyles.style16Normal.copyWith(
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' ${post.owner!.uname}',
-                    style: AppStyles.style16Bold.copyWith(
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-        /// Report Post
-
-        NxListTile(
-          bgColor: ColorValues.transparent,
-          padding: Dimens.edgeInsets12,
-          showBorder: false,
-          onTap: () {
-            AppUtility.closeBottomSheet();
-            RouteManagement.goToReportIssueView(post.id!, ReportType.post);
-          },
-          leading: Icon(
-            Icons.report,
-            color: Theme.of(context).textTheme.bodyLarge!.color,
-            size: Dimens.twentyFour,
-          ),
-          title: Text(
-            StringValues.report,
-            style: AppStyles.style16Normal.copyWith(
-              color: Theme.of(context).textTheme.bodyLarge!.color,
-            ),
-          ),
-        ),
-      ],
+  Widget _buildPostTime(BuildContext context) {
+    return Text(
+      DateFormat('dd MMM yyyy hh:mm a').format(post.createdAt!.toLocal()),
+      style: AppStyles.style13Normal.copyWith(
+        color: Theme.of(context).textTheme.titleMedium!.color,
+      ),
     );
   }
+
+  GestureDetector _buildCommentCount() {
+    return GestureDetector(
+      onTap: () => RouteManagement.goToPostCommentsView(post.id!),
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: '${post.commentsCount}'.toCountingFormat(),
+              style: AppStyles.style14Bold.copyWith(
+                color: Theme.of(Get.context!).textTheme.bodyLarge!.color,
+              ),
+            ),
+            TextSpan(
+              text: '  ${StringValues.comments}',
+              style: AppStyles.style13Normal.copyWith(
+                color: Theme.of(Get.context!).textTheme.titleMedium!.color,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRepostCount() {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: '0'.toCountingFormat(),
+            style: AppStyles.style14Bold.copyWith(
+              color: Theme.of(Get.context!).textTheme.bodyLarge!.color,
+            ),
+          ),
+          TextSpan(
+            text: '  ${StringValues.reposts}',
+            style: AppStyles.style13Normal.copyWith(
+              color: Theme.of(Get.context!).textTheme.titleMedium!.color,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  GestureDetector _buildLikeCount() {
+    return GestureDetector(
+      onTap: () => RouteManagement.goToPostPostLikedUsersView(post.id!),
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: '${post.likesCount}'.toCountingFormat(),
+              style: AppStyles.style14Bold.copyWith(
+                color: Theme.of(Get.context!).textTheme.bodyLarge!.color,
+              ),
+            ),
+            TextSpan(
+              text: '  ${StringValues.likes}',
+              style: AppStyles.style13Normal.copyWith(
+                color: Theme.of(Get.context!).textTheme.titleMedium!.color,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showHeaderOptionBottomSheet(BuildContext context) =>
+      AppUtility.showBottomSheet(
+        children: [
+          if (post.owner!.id == ProfileController.find.profileDetails!.user!.id)
+            ListTile(
+              onTap: () {
+                AppUtility.closeBottomSheet();
+                AppUtility.showDeleteDialog(
+                  context,
+                  () async {
+                    AppUtility.closeDialog();
+                    controller?.deletePost(post.id!);
+                  },
+                );
+              },
+              leading: Icon(
+                Icons.delete,
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+                size: Dimens.twentyFour,
+              ),
+              title: Text(
+                StringValues.delete,
+                style: AppStyles.style16Bold.copyWith(
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                ),
+              ),
+            ),
+          ListTile(
+            onTap: AppUtility.closeBottomSheet,
+            leading: Icon(
+              Icons.share,
+              color: Theme.of(context).textTheme.bodyLarge!.color,
+              size: Dimens.twentyFour,
+            ),
+            title: Text(
+              StringValues.share,
+              style: AppStyles.style16Bold.copyWith(
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+              ),
+            ),
+          ),
+          ListTile(
+            onTap: AppUtility.closeBottomSheet,
+            leading: Icon(
+              Icons.report,
+              color: Theme.of(context).textTheme.bodyLarge!.color,
+              size: Dimens.twentyFour,
+            ),
+            title: Text(
+              StringValues.report,
+              style: AppStyles.style16Bold.copyWith(
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+              ),
+            ),
+          ),
+        ],
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -595,7 +560,7 @@ class PostWidget extends StatelessWidget {
         controller is PostController ||
         controller is TrendingPostController);
     return Container(
-      margin: Dimens.edgeInsets8_0,
+      margin: Dimens.edgeInsets6_0,
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(Dimens.four),

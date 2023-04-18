@@ -6,7 +6,7 @@ import 'package:social_media_app/global_widgets/circular_progress_indicator.dart
 import 'package:social_media_app/global_widgets/custom_app_bar.dart';
 import 'package:social_media_app/global_widgets/custom_refresh_indicator.dart';
 import 'package:social_media_app/global_widgets/load_more_widget.dart';
-import 'package:social_media_app/modules/home/views/widgets/user_widget.dart';
+import 'package:social_media_app/modules/home/views/components/user_widget.dart';
 import 'package:social_media_app/modules/post/controllers/post_liked_users_controller.dart';
 import 'package:social_media_app/routes/route_management.dart';
 

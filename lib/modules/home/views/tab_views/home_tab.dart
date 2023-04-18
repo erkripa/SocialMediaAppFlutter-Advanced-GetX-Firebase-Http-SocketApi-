@@ -17,7 +17,7 @@ import 'package:social_media_app/global_widgets/sliver_app_bar.dart';
 import 'package:social_media_app/modules/home/controllers/banner_controller.dart';
 import 'package:social_media_app/modules/home/controllers/post_controller.dart';
 import 'package:social_media_app/modules/home/controllers/profile_controller.dart';
-import 'package:social_media_app/modules/home/views/widgets/post_widget.dart';
+import 'package:social_media_app/modules/home/views/components/post_widget.dart';
 import 'package:social_media_app/routes/route_management.dart';
 import 'package:social_media_app/utils/utility.dart';
 

@@ -9,7 +9,7 @@ import 'package:social_media_app/global_widgets/custom_refresh_indicator.dart';
 import 'package:social_media_app/global_widgets/load_more_widget.dart';
 import 'package:social_media_app/global_widgets/unfocus_widget.dart';
 import 'package:social_media_app/modules/home/controllers/trending_post_controller.dart';
-import 'package:social_media_app/modules/home/views/widgets/post_widget.dart';
+import 'package:social_media_app/modules/home/views/components/post_widget.dart';
 
 class TrendingPostsTab extends StatelessWidget {
   const TrendingPostsTab({Key? key}) : super(key: key);

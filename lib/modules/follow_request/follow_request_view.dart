@@ -11,7 +11,7 @@ import 'package:social_media_app/global_widgets/primary_outlined_btn.dart';
 import 'package:social_media_app/global_widgets/primary_text_btn.dart';
 import 'package:social_media_app/global_widgets/unfocus_widget.dart';
 import 'package:social_media_app/modules/follow_request/follow_request_controller.dart';
-import 'package:social_media_app/modules/follow_request/widgets/follow_request_widget.dart';
+import 'package:social_media_app/modules/follow_request/components/follow_request_widget.dart';
 
 class FollowRequestView extends StatelessWidget {
   const FollowRequestView({Key? key}) : super(key: key);

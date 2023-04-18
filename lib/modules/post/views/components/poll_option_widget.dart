@@ -4,7 +4,7 @@ import 'package:social_media_app/apis/models/entities/post.dart';
 import 'package:social_media_app/constants/colors.dart';
 import 'package:social_media_app/constants/dimens.dart';
 import 'package:social_media_app/constants/styles.dart';
-import 'package:social_media_app/modules/post/views/widgets/linear_progress_painter.dart';
+import 'package:social_media_app/modules/post/views/components/linear_progress_painter.dart';
 
 class PollOptionWidget extends StatelessWidget {
   const PollOptionWidget({

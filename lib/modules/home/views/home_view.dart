@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:social_media_app/constants/dimens.dart';
 import 'package:social_media_app/constants/strings.dart';
 import 'package:social_media_app/modules/home/controllers/home_controller.dart';
-import 'package:social_media_app/modules/home/views/widgets/bottom_nav_bar.dart';
+import 'package:social_media_app/modules/home/views/components/bottom_nav_bar.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);

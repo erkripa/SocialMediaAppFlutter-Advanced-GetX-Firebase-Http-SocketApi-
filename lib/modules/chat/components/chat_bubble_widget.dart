@@ -16,10 +16,10 @@ import 'package:social_media_app/global_widgets/avatar_widget.dart';
 import 'package:social_media_app/global_widgets/circular_progress_indicator.dart';
 import 'package:social_media_app/global_widgets/swipeable_widget.dart';
 import 'package:social_media_app/global_widgets/video_player_widget.dart';
+import 'package:social_media_app/modules/chat/components/chat_bubble_clipper.dart';
+import 'package:social_media_app/modules/chat/components/chat_reply_to_widget.dart';
 import 'package:social_media_app/modules/chat/controllers/p2p_chat_controller.dart';
 import 'package:social_media_app/modules/chat/views/image_viewer_screen.dart';
-import 'package:social_media_app/modules/chat/widgets/chat_bubble_clipper.dart';
-import 'package:social_media_app/modules/chat/widgets/chat_reply_to_widget.dart';
 import 'package:social_media_app/modules/home/controllers/profile_controller.dart';
 import 'package:social_media_app/utils/utility.dart';
 

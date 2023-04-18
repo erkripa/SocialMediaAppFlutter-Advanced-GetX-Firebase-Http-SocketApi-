@@ -10,7 +10,7 @@ import 'package:social_media_app/global_widgets/custom_refresh_indicator.dart';
 import 'package:social_media_app/global_widgets/primary_text_btn.dart';
 import 'package:social_media_app/global_widgets/unfocus_widget.dart';
 import 'package:social_media_app/modules/follower/controllers/followers_list_controller.dart';
-import 'package:social_media_app/modules/home/views/widgets/user_widget.dart';
+import 'package:social_media_app/modules/home/views/components/user_widget.dart';
 import 'package:social_media_app/routes/route_management.dart';
 
 class FollowersListView extends StatelessWidget {

@@ -10,7 +10,7 @@ import 'package:social_media_app/global_widgets/custom_app_bar.dart';
 import 'package:social_media_app/global_widgets/custom_refresh_indicator.dart';
 import 'package:social_media_app/global_widgets/load_more_widget.dart';
 import 'package:social_media_app/modules/chat/controllers/chat_controller.dart';
-import 'package:social_media_app/modules/chat/widgets/chat_widget.dart';
+import 'package:social_media_app/modules/chat/components/chat_widget.dart';
 import 'package:social_media_app/modules/home/controllers/profile_controller.dart';
 import 'package:social_media_app/routes/route_management.dart';
 

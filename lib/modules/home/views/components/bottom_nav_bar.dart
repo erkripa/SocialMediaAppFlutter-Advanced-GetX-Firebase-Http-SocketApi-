@@ -5,7 +5,7 @@ import 'package:social_media_app/modules/chat/controllers/chat_controller.dart';
 import 'package:social_media_app/modules/home/controllers/home_controller.dart';
 import 'package:social_media_app/modules/home/controllers/notification_controller.dart';
 import 'package:social_media_app/modules/home/controllers/profile_controller.dart';
-import 'package:social_media_app/modules/home/views/widgets/bottom_nav_item.dart';
+import 'package:social_media_app/modules/home/views/components/bottom_nav_item.dart';
 
 class NxBottomNavBar extends StatelessWidget {
   const NxBottomNavBar({

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:social_media_app/constants/colors.dart';
 import 'package:social_media_app/constants/dimens.dart';
 import 'package:social_media_app/global_widgets/animated_icon.dart';
-import 'package:social_media_app/modules/home/views/widgets/animated_bar.dart';
+import 'package:social_media_app/modules/home/views/components/animated_bar.dart';
 
 class BottomNavItem extends StatefulWidget {
   const BottomNavItem({

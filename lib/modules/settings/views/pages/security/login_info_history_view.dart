@@ -12,7 +12,7 @@ import 'package:social_media_app/global_widgets/load_more_widget.dart';
 import 'package:social_media_app/global_widgets/primary_text_btn.dart';
 import 'package:social_media_app/global_widgets/unfocus_widget.dart';
 import 'package:social_media_app/modules/settings/controllers/login_info_controller.dart';
-import 'package:social_media_app/modules/settings/views/widgets/login_info_widget.dart';
+import 'package:social_media_app/modules/settings/views/components/login_info_widget.dart';
 
 class LoginInfoHistoryView extends StatelessWidget {
   const LoginInfoHistoryView({Key? key}) : super(key: key);

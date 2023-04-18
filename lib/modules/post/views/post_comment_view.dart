@@ -11,7 +11,7 @@ import 'package:social_media_app/global_widgets/primary_icon_btn.dart';
 import 'package:social_media_app/global_widgets/unfocus_widget.dart';
 import 'package:social_media_app/modules/post/controllers/comment_controller.dart';
 import 'package:social_media_app/modules/post/controllers/create_comment_controller.dart';
-import 'package:social_media_app/modules/post/views/widgets/comment_widget.dart';
+import 'package:social_media_app/modules/post/views/components/comment_widget.dart';
 
 class PostCommentView extends StatelessWidget {
   const PostCommentView({Key? key}) : super(key: key);

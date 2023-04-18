@@ -10,7 +10,7 @@ import 'package:social_media_app/global_widgets/load_more_widget.dart';
 import 'package:social_media_app/modules/follow_request/follow_request_controller.dart';
 import 'package:social_media_app/modules/home/controllers/notification_controller.dart';
 import 'package:social_media_app/modules/home/controllers/profile_controller.dart';
-import 'package:social_media_app/modules/home/views/widgets/notification_widget.dart';
+import 'package:social_media_app/modules/home/views/components/notification_widget.dart';
 import 'package:social_media_app/routes/route_management.dart';
 
 class NotificationTabView extends StatelessWidget {

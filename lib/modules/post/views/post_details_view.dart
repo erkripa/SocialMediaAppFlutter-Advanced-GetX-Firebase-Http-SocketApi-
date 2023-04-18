@@ -10,8 +10,8 @@ import 'package:social_media_app/global_widgets/load_more_widget.dart';
 import 'package:social_media_app/global_widgets/unfocus_widget.dart';
 import 'package:social_media_app/modules/post/controllers/comment_controller.dart';
 import 'package:social_media_app/modules/post/controllers/post_details_controller.dart';
-import 'package:social_media_app/modules/post/views/widgets/comment_widget.dart';
-import 'package:social_media_app/modules/post/views/widgets/post_details_widget.dart';
+import 'package:social_media_app/modules/post/views/components/comment_widget.dart';
+import 'package:social_media_app/modules/post/views/components/post_details_widget.dart';
 
 class PostDetailsView extends StatelessWidget {
   const PostDetailsView({Key? key}) : super(key: key);

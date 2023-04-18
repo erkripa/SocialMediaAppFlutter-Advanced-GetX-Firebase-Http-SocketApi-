@@ -4,13 +4,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:social_media_app/app_services/notification_service.dart';
+import 'package:social_media_app/firebase_options.dart';
 import 'package:social_media_app/utils/utility.dart';
 
 @pragma('vm:entry-point')
 Future<void> initializeFirebaseService() async {
   AppUtility.log('Initializing Firebase Service');
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   var messaging = FirebaseMessaging.instance;
 
